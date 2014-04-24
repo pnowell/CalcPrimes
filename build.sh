@@ -16,9 +16,9 @@ fi
 # Set up compiler / linker options
 COPTS="-c $COPTS"
 LOPTS=""
-if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+if [ "$(uname -s)" == "Linux" ]; then
     COPTS="$COPTS -std=c++0x"
-    LOPTS="$LOTS -lrt"
+    LOPTS="$LOPTS -lrt"
 fi
 
 # Compile everything (pretty small, so we don't worry about conditional compilation with
