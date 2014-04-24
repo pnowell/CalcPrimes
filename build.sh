@@ -21,6 +21,9 @@ if [[ `uname -s` == Linux* ]]; then
     LOPTS="$LOPTS -lrt"
 fi
 
+# Echo the rest of the commands
+set -x
+
 # Compile everything (pretty small, so we don't worry about conditional compilation with
 # dependencies and time stamps)
 g++ $COPTS -o _build/Timer.o src/Timer.cpp
