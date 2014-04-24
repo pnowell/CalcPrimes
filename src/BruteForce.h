@@ -6,28 +6,24 @@
 #include "Sieve.h"
 
 // ================================================================================================
-class BasicSieve : public CalcMethod {
+class BruteForce : public CalcMethod {
 
 public:
 
     // Constructor
-    BasicSieve();
+    BruteForce();
 
     // Compute primes up to a limit
     virtual void ComputePrimes(U64 limit);
 
     // The name of this method
     virtual const char* Name() const {
-        return "BasicSieve";
+        return "BruteForce";
     }
 
 protected:
 
-    Sieve sieve;
-    size_t sievePos;
     U64 curr;
     U64 currSqrt;
-
-    void NextNumber();
 };
 

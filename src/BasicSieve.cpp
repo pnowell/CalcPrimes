@@ -6,35 +6,22 @@
 // ================================================================================================
 // Constructor
 // ================================================================================================
-BasicSieve::BasicSieve() : sieve(), sievePos(0) {
+BasicSieve::BasicSieve() : CalcMethod(), sieve(), sievePos(0), curr(1), currSqrt(1) {
     for(size_t i = 0; i < kNumSievePrimes; ++i)
         sieve.AddPrime(kSievePrimes[i]);
+
+    primes.resize(kNumSievePrimes);
+    for(size_t i = 0; i < kNumSievePrimes; ++i)
+        primes[i] = kSievePrimes[i];
+
+    NextNumber();
 }
 
 // ================================================================================================
 // Compute primes up to a limit
 // ================================================================================================
-void BasicSieve::ComputePrimes(std::vector<U64>& primes, U64 limit) {
-    primes.resize(kNumSievePrimes);
-    for(size_t i = 0; i < kNumSievePrimes; ++i)
-        primes[i] = kSievePrimes[i];
-
-    U64 curr = 1;
-    U64 currSqrt = 1;
-    while(true) {
-        // Move on to the next number
-        curr += sieve.Offset(sievePos);
-        // Update the offset index
-        if(++sievePos == sieve.NumOffsets())
-            sievePos = 0;
-
-        if(curr > limit)
-            break;
-
-        // Update the square root
-        while(currSqrt * currSqrt <= curr)
-            ++currSqrt;
-
+void BasicSieve::ComputePrimes(U64 limit) {
+    while(curr <= limit) {
         // Check to see if curr is prime
         bool isPrime = true;
         // We don't need to check the primes that went into the sieve
@@ -46,6 +33,21 @@ void BasicSieve::ComputePrimes(std::vector<U64>& primes, U64 limit) {
         }
         if(isPrime)
             primes.push_back(curr);
+
+        NextNumber();
     }
+}
+
+// ================================================================================================
+void BasicSieve::NextNumber() {
+    // Move on to the next number
+    curr += sieve.Offset(sievePos);
+    // Update the offset index
+    if(++sievePos == sieve.NumOffsets())
+        sievePos = 0;
+
+    // Update the square root
+    while(currSqrt * currSqrt <= curr)
+        ++currSqrt;
 }
 
