@@ -16,7 +16,7 @@ fi
 # Set up compiler / linker options
 COPTS="-c $COPTS"
 LOPTS=""
-if [ "$(uname -s)" == "Linux" ]; then
+if [[ `uname -s` == Linux* ]]; then
     COPTS="$COPTS -std=c++0x"
     LOPTS="$LOPTS -lrt"
 fi
