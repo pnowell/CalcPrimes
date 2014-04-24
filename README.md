@@ -8,6 +8,8 @@ Contents of src
   * Main method that profiles the different prime calculation methods
 * Types.h
   * Basic typedefs that I like
+* Timer.h/.cpp
+  * Class to use for profiling the different calculation methods
 * Sieve.h/.cpp
   * Sieve class used in the various prime calculation methods.  It's a basic class that helps you easily and quickly walk over non-multiples of a set of primes
 * SievePrimes.h / .cpp
