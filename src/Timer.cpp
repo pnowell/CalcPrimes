@@ -53,8 +53,7 @@ U64 Timer::Cycles() const {
         return mach_absolute_time();
     #else
         struct timespec res;
-        AssertOnly_(S32 err = ) clock_gettime(CLOCK_MONOTONIC, &res);
-        Assert_(err == 0, "Getting start time of timer");
+        clock_gettime(CLOCK_MONOTONIC, &res);
         return res.tv_sec * sFreq + res.tv_nsec;
     #endif
 }
