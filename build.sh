@@ -16,10 +16,17 @@ fi
 # Set up compile options
 OPTS="-c $OPTS"
 
-# Compile everything (pretty small, so we don't worry about dependencies and time stamps)
+# Compile everything (pretty small, so we don't worry about conditional compilation with
+# dependencies and time stamps)
+g++ $OPTS -o _build/Timer.o src/Timer.cpp
 g++ $OPTS -o _build/Sieve.o src/Sieve.cpp
 g++ $OPTS -o _build/SievePrimes.o src/SievePrimes.cpp
 g++ $OPTS -o _build/BasicSieve.o src/BasicSieve.cpp
 g++ $OPTS -o _build/main.o src/main.cpp
-g++ -o CalcPrimes _build/Sieve.o _build/SievePrimes.o _build/BasicSieve.o _build/main.o
+g++ -o CalcPrimes \
+    _build/Timer.o \
+    _build/Sieve.o \
+    _build/SievePrimes.o \
+    _build/BasicSieve.o \
+    _build/main.o
 
