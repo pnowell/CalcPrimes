@@ -1,0 +1,12 @@
+# Ignore the build directory
+_build/
+
+# Ignore the final executable
+CalcPrimes
+
+# Ignore some other common files
+.DS_Store
+*.swp
+*.swo
+*.pyc
+
