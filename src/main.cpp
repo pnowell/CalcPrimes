@@ -30,6 +30,7 @@ static void Analyze(CalcMethod& method, std::vector<U64>* correct = NULL) {
 
         sum += timer.Elapsed();
         printf("%f%s", sum, i == kPrimeLimit ? "\n" : ", ");
+        fflush(stdout);
     }
 
     // Check the primes against the correct list, if provided
