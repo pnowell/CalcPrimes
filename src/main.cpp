@@ -1,19 +1,20 @@
 
 // local includes
-#include "BruteForce.h"
 #include "BasicSieve.h"
+#include "BruteForce.h"
 #include "Timer.h"
+#include "TokenHeap.h"
 
 // system includes
-#include <vector>
 #include <cstdio>
+#include <vector>
 
-static const U64 kPrimeLimit = 1000000;
-static const U64 kChunkSize = 100000;
+static const U64 kPrimeLimit = 100000000;
+static const U64 kChunkSize = 1000000;
 
 // ================================================================================================
 static void Analyze(CalcMethod& method, std::vector<U64>* correct = NULL) {
-    printf("%s\t", method.Name());
+    printf("%s, %f, ", method.Name(), 0.0f);
 
     Timer timer;
     F32 sum = 0.0f;
@@ -28,7 +29,7 @@ static void Analyze(CalcMethod& method, std::vector<U64>* correct = NULL) {
         timer.Sample();
 
         sum += timer.Elapsed();
-        printf("%f%s", sum, i == kPrimeLimit ? "\n" : "\t");
+        printf("%f%s", sum, i == kPrimeLimit ? "\n" : ", ");
     }
 
     // Check the primes against the correct list, if provided
@@ -60,6 +61,15 @@ int main(int argc, const char* argv[]) {
     // Initialize timing functionality
     Timer::StaticInit();
 
+    // Print the table header
+    printf("Name, 0, ");
+    for(U64 i = 0; i < kPrimeLimit;) {
+        i += kChunkSize;
+        if(i > kPrimeLimit)
+            i = kPrimeLimit;
+        printf("%llu%s", i, i == kPrimeLimit ? "\n" : ", ");
+    }
+
     // Brute force solution (used as a correct list of primes for everything else)
     BruteForce bruteForce;
     Analyze(bruteForce);
@@ -67,6 +77,11 @@ int main(int argc, const char* argv[]) {
     // Basic sieve usage, still dividing by recorded primes up to the square root
     BasicSieve basicSieve;
     Analyze(basicSieve, &bruteForce.primes);
+
+    // Track tokens for each prime that visit all the multiples of that prime
+    // New primes are numbers that you reach that have no tokens
+    TokenHeap tokenHeap;
+    Analyze(tokenHeap, &bruteForce.primes);
 
     return 0;
 }
