@@ -4,13 +4,15 @@
 #include "BruteForce.h"
 #include "Timer.h"
 #include "TokenHeap.h"
+#include "TokensWithBudget.h"
 
 // system includes
 #include <cstdio>
 #include <vector>
 
-static const U64 kPrimeLimit = 100000000;
-static const U64 kChunkSize = 1000000;
+static const U64 kPrimeLimit = 100 * 1000 * 1000;
+static const U64 kChunkSize = 1000 * 1000;
+static const size_t kBudget = 512 << 10;
 
 // ================================================================================================
 static void Analyze(CalcMethod& method, std::vector<U64>* correct = NULL) {
@@ -75,14 +77,26 @@ int main(int argc, const char* argv[]) {
     BruteForce bruteForce;
     Analyze(bruteForce);
 
-    // Basic sieve usage, still dividing by recorded primes up to the square root
-    BasicSieve basicSieve;
-    Analyze(basicSieve, &bruteForce.primes);
+    {
+        // Basic sieve usage, still dividing by recorded primes up to the square root
+        BasicSieve basicSieve;
+        Analyze(basicSieve, &bruteForce.primes);
+    }
 
-    // Track tokens for each prime that visit all the multiples of that prime
-    // New primes are numbers that you reach that have no tokens
-    TokenHeap tokenHeap;
-    Analyze(tokenHeap, &bruteForce.primes);
+    {
+        // Track tokens for each prime that visit all the multiples of that prime
+        // New primes are numbers that you reach that have no tokens
+        TokenHeap tokenHeap;
+        Analyze(tokenHeap, &bruteForce.primes);
+    }
+
+    {
+        // Instead of keeping a heap of tokens, put them in a fixed array and write
+        // tokens to a scratch file when they fall off the back end to be loaded once
+        // you reach the end of the list
+        TokensWithBudget tokensWithBudget(kBudget);
+        Analyze(tokensWithBudget, &bruteForce.primes);
+    }
 
     return 0;
 }

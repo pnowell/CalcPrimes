@@ -32,6 +32,7 @@ g++ $COPTS -o _build/SievePrimes.o src/SievePrimes.cpp
 g++ $COPTS -o _build/BruteForce.o src/BruteForce.cpp
 g++ $COPTS -o _build/BasicSieve.o src/BasicSieve.cpp
 g++ $COPTS -o _build/TokenHeap.o src/TokenHeap.cpp
+g++ $COPTS -o _build/TokensWithBudget.o src/TokensWithBudget.cpp
 g++ $COPTS -o _build/main.o src/main.cpp
 g++ $LOPTS -o CalcPrimes \
     _build/Timer.o \
@@ -40,5 +41,6 @@ g++ $LOPTS -o CalcPrimes \
     _build/BruteForce.o \
     _build/BasicSieve.o \
     _build/TokenHeap.o \
+    _build/TokensWithBudget.o \
     _build/main.o
 
