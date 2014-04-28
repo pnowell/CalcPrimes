@@ -5,13 +5,19 @@
 #include "Timer.h"
 #include "TokenHeap.h"
 #include "TokensWithBudget.h"
+#include "Eratosthenes.h"
 
 // system includes
 #include <cstdio>
 #include <vector>
 
+#if 0
 static const U64 kPrimeLimit = 100 * 1000 * 1000;
 static const U64 kChunkSize = 1000 * 1000;
+#else
+static const U64 kPrimeLimit = 10 * 1000 * 1000;
+static const U64 kChunkSize = 10 * 1000;
+#endif
 static const size_t kBudget = 512 << 10;
 
 // ================================================================================================
@@ -96,6 +102,14 @@ int main(int argc, const char* argv[]) {
         // you reach the end of the list
         TokensWithBudget tokensWithBudget(kBudget);
         Analyze(tokensWithBudget, &bruteForce.primes);
+    }
+
+    {
+        // Instead of keeping a heap of tokens, put them in a fixed array and write
+        // tokens to a scratch file when they fall off the back end to be loaded once
+        // you reach the end of the list
+        Eratosthenes eratosthenes(kPrimeLimit);
+        Analyze(eratosthenes, &bruteForce.primes);
     }
 
     return 0;

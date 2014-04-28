@@ -1,7 +1,6 @@
 
 // local includes
 #include "BruteForce.h"
-#include "SievePrimes.h"
 
 // ================================================================================================
 // Constructor

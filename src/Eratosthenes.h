@@ -5,24 +5,30 @@
 #include "CalcMethod.h"
 
 // ================================================================================================
-class BruteForce : public CalcMethod {
+class Eratosthenes : public CalcMethod {
 
 public:
 
     // Constructor
-    BruteForce();
+    Eratosthenes(size_t hardLimit);
 
     // Compute primes up to a limit
     virtual void ComputePrimes(U64 limit);
 
     // The name of this method
     virtual const char* Name() const {
-        return "BruteForce";
+        return "Eratosthenes";
     }
 
 protected:
 
-    U64 curr;
-    U64 currSqrt;
+    struct Slot {
+        U32 offset;
+        U32 fromSlot;
+    };
+
+    U32 curr;
+    bool sqrPastLimit;
+    std::vector<Slot> slots;
 };
 
