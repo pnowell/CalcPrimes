@@ -20,6 +20,10 @@ public:
     // other primes passed to this method)
     void AddPrime(U64 p);
 
+    // Get the initial offset you need to start using a sieve (also return the value to start
+    // at instead of "v" in case v didn't align with a spot in the sieve)
+    U64 GetInitialOffset(U64 v, size_t& index) const;
+
     // Access to offset array
     size_t NumOffsets() const;
     U64 Offset(size_t i) const;

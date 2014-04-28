@@ -42,3 +42,36 @@ void Sieve::AddPrime(U64 p) {
     }
 }
 
+// ================================================================================================
+// Get the initial offset you need to start using a sieve (also return the value to start
+// at instead of "v" in case v didn't align with a spot in the sieve)
+// ================================================================================================
+U64 Sieve::GetInitialOffset(U64 v, size_t& index) const {
+    // reduce the value to its offset from the beginning of the sieve
+    U64 remainder = U64(v % sieveSize);
+
+    // handle the 0 and 1 case specially
+    if(remainder == 0 || remainder == 1) {
+        index = 0;
+        return v + (1 - remainder);
+    }
+
+    // otherwise subtract out the implicit one
+    --remainder;
+
+    // for each index
+    size_t size = offsets.size();
+    for(index = 1; index < size; ++index) {
+        // check to see if the remainder is less than the last index
+        if(remainder <= offsets[index-1])
+            return v + (offsets[index-1] - remainder);
+
+        // otherwise decrement it and move on
+        remainder -= offsets[index-1];
+    }
+
+    // if we made it out here, the remainder is within the last offset
+    index = 0;
+    return v + (offsets[index] - remainder);
+}
+
