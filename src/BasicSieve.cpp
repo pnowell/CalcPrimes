@@ -25,7 +25,7 @@ void BasicSieve::ComputePrimes(U64 limit) {
         // Check to see if curr is prime
         bool isPrime = true;
         // We don't need to check the primes that went into the sieve
-        for(size_t i = kNumSievePrimes; i < primes.size() && primes[i] <= currSqrt; ++i) {
+        for(size_t i = kNumSievePrimes; i < primes.size() && primes[i] < currSqrt; ++i) {
             if(curr % primes[i] == 0) {
                 isPrime = false;
                 break;
