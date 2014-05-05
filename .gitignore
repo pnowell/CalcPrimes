@@ -4,6 +4,10 @@ _build/
 # Ignore the final executable
 CalcPrimes
 
+# Ignore a directory I'm using to keep implementations that didn't pan out, but I don't want
+# to delete them
+.backup/
+
 # Ignore some other common files
 .DS_Store
 *.swp
