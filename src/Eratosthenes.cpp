@@ -1,70 +1,38 @@
 
 // local includes
 #include "Eratosthenes.h"
+#include "Math.h"
 
 // ================================================================================================
 // Constructor
 // ================================================================================================
-Eratosthenes::Eratosthenes(size_t h) : CalcMethod(), hardLimit(U64(h)), curr(2),
-                                       sqrPastLimit(false) {
+Eratosthenes::Eratosthenes(size_t h) : CalcMethod(), hardLimit(U64(h)), flags() {
 }
 
 // ================================================================================================
 // Initialization
 // ================================================================================================
 void Eratosthenes::Init() {
-    // First create our array (we make a 2-based array, and we want to be able to tell if
-    // hardLimit itself is a prime, so we just need an array of sized hardLimit - 1
-    size_t size = hardLimit - 1;
-    slots.resize(size);
-    for(size_t i = 0; i < size; ++i) {
-        Slot& s = slots[i];
-        s.offset = 1;
-        s.fromSlot = i - 1; // the from slot being incorrect for the first slot is fine
-    }
+    // Allocate enough U64s and initialize them all to zero
+    flags.resize(hardLimit / 64 + 1, 0);
+    curr = 2;
 }
 
 // ================================================================================================
 // Compute primes up to a limit
 // ================================================================================================
 void Eratosthenes::ComputePrimes(U64 limit) {
-    if(limit >= hardLimit)
+    if(limit > hardLimit)
         limit = hardLimit;
-    for(; curr <= limit; curr += slots[curr - 2].offset) {
-        // The current number is a prime
-        primes.push_back(curr);
-
-        // Mark off it's multiples (starting with its square)
-        if(sqrPastLimit)
-            continue;
-
-        U64 m = curr * curr;
-        if(m >= hardLimit) {
-            sqrPastLimit = true;
-            continue;
+    while(curr <= limit) {
+        if(!GetFlag(curr)) {
+            primes.push_back(curr);
+            for(U64 i = curr * curr; i <= hardLimit; i += curr)
+                SetFlag(i);
         }
 
-        for(; m <= hardLimit; m += curr) {
-            U64 idx = m - 2;
-            Slot& s = slots[idx];
-
-            // If this slot has already been marked as non-prime, move on
-            if(s.offset == 0)
-                continue;
-
-            // Get the slot that was pointing to us and point to what this slot had been
-            Slot& from = slots[s.fromSlot];
-            from.offset += s.offset;
-
-            // If the thing we're pointing to is within the table, let it know who's pointing to it
-            if(idx + s.offset <= hardLimit) {
-                Slot& dest = slots[idx + s.offset];
-                dest.fromSlot = s.fromSlot;
-            }
-
-            // Make sure we know not to mess with this one again
-            s.offset = s.fromSlot = 0;
-        }
+        // Move on to the next number
+        ++curr;
     }
 }
 

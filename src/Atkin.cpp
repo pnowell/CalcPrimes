@@ -16,7 +16,6 @@ void Atkin::Init() {
     // Allocate enough U64s and initialize them all to zero
     flags.resize(hardLimit / 64 + 1, 0);
 
-
     // Find all the solutions to the three equations flipping bits as necessary
     U64 sqrt = ISqrt(hardLimit);
     for(U64 x = 1; x <= sqrt; ++x) {

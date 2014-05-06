@@ -3,6 +3,7 @@
 
 // local includes
 #include "CalcMethod.h"
+#include "Sieve.h"
 
 // ================================================================================================
 class Eratosthenes : public CalcMethod {
@@ -25,14 +26,28 @@ public:
 
 protected:
 
-    struct Slot {
-        U64 offset;
-        U64 fromSlot;
-    };
-
     U64 hardLimit;
     U64 curr;
-    bool sqrPastLimit;
-    std::vector<Slot> slots;
+    std::vector<U64> flags;
+
+    // Utilities for accessing and modifying flags
+    bool GetFlag(U64 n);
+    void SetFlag(U64 n);
 };
+
+// ================================================================================================
+// Utilities for accessing and modifying flags
+// ================================================================================================
+inline bool Eratosthenes::GetFlag(U64 n) {
+    U64 idx = n / 64LL;
+    U64 bit = n % 64LL;
+    return (flags[idx] & (1LL << bit)) != 0;
+}
+
+inline void Eratosthenes::SetFlag(U64 n) {
+    U64 idx = n / 64LL;
+    U64 bit = n % 64LL;
+    U64& f = flags[idx];
+    f = f | (1LL << bit);
+}
 
