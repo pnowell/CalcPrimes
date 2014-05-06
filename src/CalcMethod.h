@@ -16,6 +16,9 @@ public:
 
     std::vector<U64> primes;
 
+    // Initialization
+    virtual void Init() = 0;
+
     // Abstract method for computing primes up to a certain limit
     virtual void ComputePrimes(U64 limit) = 0;
 

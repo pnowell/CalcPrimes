@@ -14,10 +14,16 @@ static char kTempFilename[kFilenameLen];
 // ================================================================================================
 // Constructor
 // ================================================================================================
-TokensWithBudget2::TokensWithBudget2(size_t budget) : CalcMethod(), sieve(), queue(kPoolSize),
-                                                      threadStarted(false), threadResult(0),
-                                                      threadJoining(false),
-                                                      fillingSecondary(false), nextList(false) {
+TokensWithBudget2::TokensWithBudget2(size_t b) : CalcMethod(), budget(b), sieve(),
+                                                 queue(kPoolSize), threadStarted(false),
+                                                 threadResult(0), threadJoining(false),
+                                                 fillingSecondary(false), nextList(false) {
+}
+
+// ================================================================================================
+// Initialization
+// ================================================================================================
+void TokensWithBudget2::Init() {
     for(size_t i = 0; i < kNumSievePrimes; ++i)
         sieve.AddPrime(kSievePrimes[i]);
 

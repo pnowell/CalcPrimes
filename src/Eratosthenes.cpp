@@ -5,17 +5,23 @@
 // ================================================================================================
 // Constructor
 // ================================================================================================
-Eratosthenes::Eratosthenes(size_t hardLimit) : CalcMethod(), curr(2), sqrPastLimit(false) {
+Eratosthenes::Eratosthenes(size_t h) : CalcMethod(), hardLimit(U32(h)), curr(2),
+                                       sqrPastLimit(false) {
+}
+
+// ================================================================================================
+// Initialization
+// ================================================================================================
+void Eratosthenes::Init() {
     // First create our array (we make a 2-based array, and we want to be able to tell if
     // hardLimit itself is a prime, so we just need an array of sized hardLimit - 1
-    hardLimit--;
-    slots.resize(hardLimit);
-    for(size_t i = 0; i < hardLimit; ++i) {
+    size_t size = hardLimit - 1;
+    slots.resize(size);
+    for(size_t i = 0; i < size; ++i) {
         Slot& s = slots[i];
         s.offset = 1;
         s.fromSlot = i - 1; // the from slot being incorrect for the first slot is fine
     }
-    curr = 2;
 }
 
 // ================================================================================================
@@ -23,7 +29,6 @@ Eratosthenes::Eratosthenes(size_t hardLimit) : CalcMethod(), curr(2), sqrPastLim
 // ================================================================================================
 void Eratosthenes::ComputePrimes(U64 limit) {
     U32 lim = U32(limit);
-    U32 hardLimit = U32(slots.size()) + 1;
     if(lim >= hardLimit)
         lim = hardLimit;
     for(; curr <= lim; curr += slots[curr - 2].offset) {

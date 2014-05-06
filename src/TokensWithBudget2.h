@@ -19,6 +19,9 @@ public:
     TokensWithBudget2(size_t budget);
     ~TokensWithBudget2();
 
+    // Initialization
+    virtual void Init();
+
     // Compute primes up to a limit
     virtual void ComputePrimes(U64 limit);
 
@@ -40,6 +43,7 @@ protected:
         TokenWithPlace(Token* t_ = NULL, U64 p_ = 0) : t(t_), place(p_) {}
     };
 
+    size_t budget;
     Sieve sieve;
     size_t sievePos;
     U64 curr;

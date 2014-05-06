@@ -12,6 +12,9 @@ public:
     // Constructor
     Eratosthenes(size_t hardLimit);
 
+    // Initialization
+    virtual void Init();
+
     // Compute primes up to a limit
     virtual void ComputePrimes(U64 limit);
 
@@ -27,6 +30,7 @@ protected:
         U32 fromSlot;
     };
 
+    U32 hardLimit;
     U32 curr;
     bool sqrPastLimit;
     std::vector<Slot> slots;

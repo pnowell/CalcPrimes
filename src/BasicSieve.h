@@ -13,6 +13,9 @@ public:
     // Constructor
     BasicSieve();
 
+    // Initialization
+    virtual void Init();
+
     // Compute primes up to a limit
     virtual void ComputePrimes(U64 limit);
 

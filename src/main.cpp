@@ -7,6 +7,7 @@
 #include "TokensWithBudget.h"
 #include "TokensWithBudget2.h"
 #include "Eratosthenes.h"
+#include "Atkin.h"
 
 // system includes
 #include <cstdio>
@@ -23,10 +24,16 @@ static const size_t kBudget = 1 << 20;
 
 // ================================================================================================
 static void Analyze(CalcMethod& method, std::vector<U64>* correct = NULL) {
-    printf("%s, %f, ", method.Name(), 0.0f);
-
     Timer timer;
     F32 sum = 0.0f;
+
+    timer.Sample();
+    method.Init();
+    timer.Sample();
+    sum += timer.Elapsed();
+
+    printf("%s, %f, ", method.Name(), sum);
+
     for(U64 i = 0; i < kPrimeLimit;) {
         i += kChunkSize;
         if(i > kPrimeLimit)
@@ -118,6 +125,12 @@ int main(int argc, const char* argv[]) {
         // you reach the end of the list
         Eratosthenes eratosthenes(kPrimeLimit);
         Analyze(eratosthenes, &bruteForce.primes);
+    }
+
+    if(0) {
+        // Implementation of the sieve of atkin
+        Atkin atkin(kPrimeLimit);
+        Analyze(atkin, &bruteForce.primes);
     }
 
     return 0;

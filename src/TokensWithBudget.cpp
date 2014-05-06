@@ -12,7 +12,13 @@ static const char* kOverflowName[] = {
 // ================================================================================================
 // Constructor
 // ================================================================================================
-TokensWithBudget::TokensWithBudget(size_t budget) : CalcMethod(), sieve() {
+TokensWithBudget::TokensWithBudget(size_t b) : CalcMethod(), budget(b), sieve() {
+}
+
+// ================================================================================================
+// Initialization
+// ================================================================================================
+void TokensWithBudget::Init() {
     for(size_t i = 0; i < kNumSievePrimes; ++i)
         sieve.AddPrime(kSievePrimes[i]);
 
