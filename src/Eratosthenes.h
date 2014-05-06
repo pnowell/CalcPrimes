@@ -26,12 +26,12 @@ public:
 protected:
 
     struct Slot {
-        U32 offset;
-        U32 fromSlot;
+        U64 offset;
+        U64 fromSlot;
     };
 
-    U32 hardLimit;
-    U32 curr;
+    U64 hardLimit;
+    U64 curr;
     bool sqrPastLimit;
     std::vector<Slot> slots;
 };

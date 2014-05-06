@@ -5,7 +5,7 @@
 // ================================================================================================
 // Constructor
 // ================================================================================================
-Eratosthenes::Eratosthenes(size_t h) : CalcMethod(), hardLimit(U32(h)), curr(2),
+Eratosthenes::Eratosthenes(size_t h) : CalcMethod(), hardLimit(U64(h)), curr(2),
                                        sqrPastLimit(false) {
 }
 
@@ -28,10 +28,9 @@ void Eratosthenes::Init() {
 // Compute primes up to a limit
 // ================================================================================================
 void Eratosthenes::ComputePrimes(U64 limit) {
-    U32 lim = U32(limit);
-    if(lim >= hardLimit)
-        lim = hardLimit;
-    for(; curr <= lim; curr += slots[curr - 2].offset) {
+    if(limit >= hardLimit)
+        limit = hardLimit;
+    for(; curr <= limit; curr += slots[curr - 2].offset) {
         // The current number is a prime
         primes.push_back(curr);
 
@@ -39,14 +38,14 @@ void Eratosthenes::ComputePrimes(U64 limit) {
         if(sqrPastLimit)
             continue;
 
-        U64 init = U64(curr) * U64(curr);
-        if(init >= hardLimit) {
+        U64 m = curr * curr;
+        if(m >= hardLimit) {
             sqrPastLimit = true;
             continue;
         }
 
-        for(U32 m = U32(init); m <= hardLimit; m += curr) {
-            U32 idx = m - 2;
+        for(; m <= hardLimit; m += curr) {
+            U64 idx = m - 2;
             Slot& s = slots[idx];
 
             // If this slot has already been marked as non-prime, move on

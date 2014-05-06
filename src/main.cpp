@@ -127,7 +127,7 @@ int main(int argc, const char* argv[]) {
         Analyze(eratosthenes, &bruteForce.primes);
     }
 
-    if(0) {
+    {
         // Implementation of the sieve of atkin
         Atkin atkin(kPrimeLimit);
         Analyze(atkin, &bruteForce.primes);
