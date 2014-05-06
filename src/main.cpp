@@ -5,6 +5,7 @@
 #include "Timer.h"
 #include "TokenHeap.h"
 #include "TokensWithBudget.h"
+#include "TokensWithBudget2.h"
 #include "Eratosthenes.h"
 
 // system includes
@@ -18,7 +19,7 @@ static const U64 kChunkSize = 1000 * 1000;
 static const U64 kPrimeLimit = 10 * 1000 * 1000;
 static const U64 kChunkSize = 10 * 1000;
 #endif
-static const size_t kBudget = 512 << 10;
+static const size_t kBudget = 1 << 20;
 
 // ================================================================================================
 static void Analyze(CalcMethod& method, std::vector<U64>* correct = NULL) {
@@ -101,6 +102,13 @@ int main(int argc, const char* argv[]) {
         // tokens to a scratch file when they fall off the back end to be loaded once
         // you reach the end of the list
         TokensWithBudget tokensWithBudget(kBudget);
+        Analyze(tokensWithBudget, &bruteForce.primes);
+    }
+
+    {
+        // Same as above, but it keeps a secondary list plus one file per range to try to mitigate
+        // the stalls from the previous method
+        TokensWithBudget2 tokensWithBudget(kBudget);
         Analyze(tokensWithBudget, &bruteForce.primes);
     }
 
