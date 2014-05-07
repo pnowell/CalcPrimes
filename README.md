@@ -23,4 +23,6 @@ Contents of src
 * TokensWithBudget2.h/.cpp
   * Same as above, but keeps a second list of the same size so that it can immediately start the next list upon finishing the current one, and a separate thread is responsible for filling the new secondary list from the overflow files.  Also, instead of keeping just one overflow file, it keeps one per budgeted window.  It keeps file handles to all of these to avoid stalling on numerous calls to fopen.
 * Eratosthenes.h/.cpp
-  * Implements the classic Sieve of Eratosthenes, but with an extra optimization.  It keeps track of an offset for each number which is the next number you could possibly need to check.  As non-primes are ruled out, offsets are adjusted so that you don't visit that number at all.  From this, the only numbers visited are primes.  Also, since it starts marking off non-primes beginning at the square of each prime, as soon as it reaches a prime where the square of that prime is greater than the extent of the table, the only thing left to do is walk over the remaining primes and record them (each prime already pointing to the next prime in the table).
+  * Implementation the classic Sieve of Eratosthenes
+* Atkin.h/.cpp
+  * Implementation of the Sieve of Atkin
