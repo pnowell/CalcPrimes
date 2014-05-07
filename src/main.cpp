@@ -7,20 +7,16 @@
 #include "TokensWithBudget.h"
 #include "TokensWithBudget2.h"
 #include "Eratosthenes.h"
+#include "ContinuedEratosthenes.h"
 #include "Atkin.h"
 
 // system includes
 #include <cstdio>
 #include <vector>
 
-#if 0
-static const U64 kPrimeLimit = 100 * 1000 * 1000;
-static const U64 kChunkSize = 1000 * 1000;
-#else
 static const U64 kPrimeLimit = 10 * 1000 * 1000;
 static const U64 kChunkSize = 10 * 1000;
-#endif
-static const size_t kBudget = 1 << 20;
+static const size_t kBudget = 1000 * 1000;
 
 // ================================================================================================
 static void Analyze(CalcMethod& method, std::vector<U64>* correct = NULL) {
@@ -120,10 +116,14 @@ int main(int argc, const char* argv[]) {
     }
 
     {
-        // Instead of keeping a heap of tokens, put them in a fixed array and write
-        // tokens to a scratch file when they fall off the back end to be loaded once
-        // you reach the end of the list
+        // Classic sieve of Eratosthenes
         Eratosthenes eratosthenes(kPrimeLimit);
+        Analyze(eratosthenes, &bruteForce.primes);
+    }
+
+    {
+        // Eratosthenes with the ability to continue past the initially designated limit
+        ContinuedEratosthenes eratosthenes(kBudget);
         Analyze(eratosthenes, &bruteForce.primes);
     }
 

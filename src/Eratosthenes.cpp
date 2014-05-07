@@ -1,7 +1,6 @@
 
 // local includes
 #include "Eratosthenes.h"
-#include "Math.h"
 
 // ================================================================================================
 // Constructor

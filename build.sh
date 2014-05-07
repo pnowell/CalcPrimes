@@ -35,6 +35,7 @@ g++ $COPTS -o _build/TokenHeap.o src/TokenHeap.cpp
 g++ $COPTS -o _build/TokensWithBudget.o src/TokensWithBudget.cpp
 g++ $COPTS -o _build/TokensWithBudget2.o src/TokensWithBudget2.cpp
 g++ $COPTS -o _build/Eratosthenes.o src/Eratosthenes.cpp
+g++ $COPTS -o _build/ContinuedEratosthenes.o src/ContinuedEratosthenes.cpp
 g++ $COPTS -o _build/Atkin.o src/Atkin.cpp
 g++ $COPTS -o _build/main.o src/main.cpp
 g++ $LOPTS -o CalcPrimes \
@@ -47,6 +48,7 @@ g++ $LOPTS -o CalcPrimes \
     _build/TokensWithBudget.o \
     _build/TokensWithBudget2.o \
     _build/Eratosthenes.o \
+    _build/ContinuedEratosthenes.o \
     _build/Atkin.o \
     _build/main.o
 

@@ -24,5 +24,7 @@ Contents of src
   * Same as above, but keeps a second list of the same size so that it can immediately start the next list upon finishing the current one, and a separate thread is responsible for filling the new secondary list from the overflow files.  Also, instead of keeping just one overflow file, it keeps one per budgeted window.  It keeps file handles to all of these to avoid stalling on numerous calls to fopen.
 * Eratosthenes.h/.cpp
   * Implementation the classic Sieve of Eratosthenes
+* ContinuedEratosthenes.h/.cpp
+  * Modification to allow the Sieve of Eratosthenes method to continue past its initially designated limit
 * Atkin.h/.cpp
   * Implementation of the Sieve of Atkin
