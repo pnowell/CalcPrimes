@@ -1,8 +1,9 @@
 # Ignore the build directory
 _build/
 
-# Ignore the final executable
+# Ignore the final executables
 CalcPrimes
+VerifyMethod
 
 # Ignore a directory I'm using to keep implementations that didn't pan out, but I don't want
 # to delete them

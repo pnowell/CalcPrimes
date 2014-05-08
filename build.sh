@@ -38,6 +38,7 @@ g++ $COPTS -o _build/Eratosthenes.o src/Eratosthenes.cpp
 g++ $COPTS -o _build/ContinuedEratosthenes.o src/ContinuedEratosthenes.cpp
 g++ $COPTS -o _build/Atkin.o src/Atkin.cpp
 g++ $COPTS -o _build/main.o src/main.cpp
+g++ $COPTS -o _build/main2.o src/main2.cpp
 g++ $LOPTS -o CalcPrimes \
     _build/Timer.o \
     _build/Sieve.o \
@@ -51,4 +52,11 @@ g++ $LOPTS -o CalcPrimes \
     _build/ContinuedEratosthenes.o \
     _build/Atkin.o \
     _build/main.o
+g++ $LOPTS -o VerifyMethod \
+    _build/Timer.o \
+    _build/Sieve.o \
+    _build/SievePrimes.o \
+    _build/TokensWithBudget2.o \
+    _build/ContinuedEratosthenes.o \
+    _build/main2.o
 

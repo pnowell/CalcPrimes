@@ -1,7 +1,6 @@
 
 // local includes
 #include "ContinuedEratosthenes.h"
-#include "Math.h"
 
 // ================================================================================================
 // Constructor
@@ -44,7 +43,7 @@ void ContinuedEratosthenes::ComputePrimes(U64 limit) {
         }
 
         U64 currBound = flagBase + bound;
-        while(curr < currBound) {
+        for(; curr < currBound; ++curr) {
             U64 adjusted = curr - flagBase;
             if(!GetFlag(adjusted)) {
                 primes.push_back(curr);
@@ -59,9 +58,6 @@ void ContinuedEratosthenes::ComputePrimes(U64 limit) {
                 for(U64 i = curr * curr - flagBase; i < budget; i += curr)
                     SetFlag(i);
             }
-
-            // Move on to the next number
-            ++curr;
         }
 
         // If there's no remaining bound, we're done
@@ -81,14 +77,17 @@ void ContinuedEratosthenes::ComputePrimes(U64 limit) {
 
         // Then go through all the primes up to the square root of the new bound to mark multiples
         size = primes.size();
-        U64 realBoundSqrt = ISqrt(flagBase + budget);
+        U64 upperBound = flagBase + budget;
         for(size_t i = 0; i < size; ++i) {
             U64 p = primes[i];
-            if(p > realBoundSqrt)
-                break;
 
             // We want to start marking flags at the sqaure of this prime
             U64 n = p * p;
+
+            // If it's past our upper bound, we can quit now
+            if(n > upperBound)
+                break;
+
             // If that square is greater than our flagBase, we adjust it down
             if(n >= flagBase)
                 n -= flagBase;
