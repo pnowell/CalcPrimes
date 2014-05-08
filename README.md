@@ -4,8 +4,10 @@ CalcPrimes
 Profiling various methods for computing primes
 
 Contents of src
-* main.cpp
+* CalcPrimes.cpp
   * Main method that profiles the different prime calculation methods
+* VerifyMethod.cpp
+  * Main method for stress testing a single method (using another method for double checking generated primes)
 * Types.h
   * Basic typedefs that I like
 * Timer.h/.cpp
