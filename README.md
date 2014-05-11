@@ -8,6 +8,8 @@ Contents of src
   * Main method that profiles the different prime calculation methods
 * VerifyMethod.cpp
   * Main method for stress testing a single method (using another method for double checking generated primes)
+* CheckBudgets.cpp
+  * Check the effect of different sized budgets on the ContinuedEratosthenes method
 * Types.h
   * Basic typedefs that I like
 * Timer.h/.cpp

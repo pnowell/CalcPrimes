@@ -23,15 +23,12 @@ void Eratosthenes::Init() {
 void Eratosthenes::ComputePrimes(U64 limit) {
     if(limit > hardLimit)
         limit = hardLimit;
-    while(curr <= limit) {
+    for(; curr <= limit; ++curr) {
         if(!GetFlag(curr)) {
             primes.push_back(curr);
             for(U64 i = curr * curr; i <= hardLimit; i += curr)
                 SetFlag(i);
         }
-
-        // Move on to the next number
-        ++curr;
     }
 }
 
