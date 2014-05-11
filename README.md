@@ -1,7 +1,7 @@
 CalcPrimes
 ==========
 
-Profiling various methods for computing primes
+Profiling various methods for computing primes.  You can see the [results here](https://docs.google.com/spreadsheets/d/1D8mSaNSnCifC80hXZevbRGqWwHSvQ0iaHEm-1YBqUmo/edit?usp=sharing)
 
 Contents of src
 * CalcPrimes.cpp
